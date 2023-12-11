@@ -1,5 +1,9 @@
 public class PlayerFactory {
     public Player buildPlayer (String type){
-        return new HumanPlayer();
+        switch (type) {
+            case "human":
+                return new HumanPlayer();
+            default: return null;
+        }
     }
 }

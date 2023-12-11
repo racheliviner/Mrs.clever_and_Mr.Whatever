@@ -7,8 +7,8 @@ public class Board {
 //    boolean putMark(Mark mark, int row, int col)
 //    GameStatus GameStatus()
 //    Mark getMark(int row, int col)
-    public static final int SIZE = 5;
-    public static final int WIN_STREAK = 3;
+    public static final int SIZE = 3;
+    public static final int WIN_STREAK = 2;
     private Mark[][] board;
     private GameStatus gameStatus;
     private int capacity;
