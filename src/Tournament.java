@@ -1,4 +1,14 @@
 public class Tournament {
+    private Player player1;
+    private Player player2;
+    Renderer renderBoard;
+    int numOfRounds;
+    public Tournament(Player player1, Player player2 , Renderer renderBoard, int numOfRounds){
+        this.player1 = player1;
+        this.player2 = player2;
+        this.renderBoard = renderBoard;
+        this.numOfRounds = numOfRounds;
+    }
     private int playRound (Game game, int playerX, int playerY){
         System.out.println("In this round player "+ playerX +  " is X and player "+playerY+" is O:");
         GameStatus winner = game.play();
@@ -9,18 +19,18 @@ public class Tournament {
             return playerY;
         return 0;
     }
-    public void playTournament(Player player1, Player player2 , Renderer renderBoard, int numOfRounds){
+    public int[] playTournament(){
         int player1win = 0;
         int player2win = 0;
         int winner;
-        for (int i = 1; i<=numOfRounds; i++){
+        for (int i = 1; i<=this.numOfRounds; i++){
             if (i%2 != 0){
-                Game game = new Game(player1, player2, renderBoard);
+                Game game = new Game(this.player1, this.player2, this.renderBoard);
                 winner = playRound(game, 1, 2);
 
             }
             else{
-                Game game = new Game(player2, player1, renderBoard);
+                Game game = new Game(this.player2, this.player1, this.renderBoard);
                 winner = playRound(game, 2, 1);
             }
             if (winner == 1){
@@ -34,33 +44,43 @@ public class Tournament {
             if (winner == 0)
                 System.out.println("Player 1 and 2 both win!");
         }
-        System.out.println("The tournament result:\n"+
-                "   Player 1 win: "+ player1win  + " rounds\n" +
-                "   Player 2 win: "+player2win+" rounds\n" +
-                "   A draw win: "+ (numOfRounds-player1win-player2win) + " rounds");
+        return new int[] {player1win,player2win,(this.numOfRounds-player1win-player2win)};
     }
     public static void main(String[] args) {
+        if (args.length!=4){
+            System.err.println("you need to choose for 2 kinds of players, type of renderer and number of rounds");
+            return;
+        }
+            String typeOfPlayer1 = args[0];
+        String typeOfPlayer2 = args[1];
+        String typeOfRenderer = args[2];
+        int numOfRounds =Integer.parseInt(args[3]);
+
+        if (numOfRounds<1){
+            System.err.println("The number of rounds cant be negative");
+            return;
+        }
+
         PlayerFactory playerFactory = new PlayerFactory();
-        String type = "human";
-        Player player1 = playerFactory.buildPlayer(type);
-        Player player2 = playerFactory.buildPlayer(type);
-        while (player1== null && player2== null){
-            System.err.println("the player type is illegal");
-            player1 = playerFactory.buildPlayer(type);
-            player2 = playerFactory.buildPlayer(type);
+        Player player1 = playerFactory.buildPlayer(typeOfPlayer1);
+        Player player2 = playerFactory.buildPlayer(typeOfPlayer2);
+        if (player1== null || player2== null){
+        System.err.println("The player type is illegal, try again");
+        return;
         }
 
         RendererFactory rendererFactory = new RendererFactory();
-        type = "console";
-        Renderer renderBoard = rendererFactory.buildRenderer(type);
-        while (renderBoard == null){
-            System.err.println("the renderer type is illegal");
-            renderBoard = rendererFactory.buildRenderer(type);
+        Renderer renderBoard = rendererFactory.buildRenderer(typeOfRenderer);
+        if (renderBoard == null){
+            System.err.println("The renderer type is illegal, try again");
+            return;
         }
 
-        int numOfRounds = 2;
-        Tournament tournament = new Tournament();
-        tournament.playTournament(player1,player2,renderBoard,numOfRounds);
-
+        Tournament tournament = new Tournament(player1,player2,renderBoard,numOfRounds);
+        int[] result = tournament.playTournament();
+        System.out.println("\nThe tournament result:\n"+
+                "   Player 1 win: "+ result[0]  + " rounds\n" +
+                "   Player 2 win: "+result[1] +" rounds\n" +
+                "   A draw win: "+ result[2]  + " rounds");
     }
 }

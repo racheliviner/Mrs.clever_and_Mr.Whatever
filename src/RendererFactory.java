@@ -1,5 +1,9 @@
 public class RendererFactory {
     public Renderer buildRenderer(String type){
-        return new ConsoleRenderer();
+        switch (type) {
+            case "console":
+                return new ConsoleRenderer();
+            default: return null;
+        }
     }
 }
