@@ -9,14 +9,12 @@ public class Tournament {
         this.renderBoard = renderBoard;
         this.numOfRounds = numOfRounds;
     }
-    private int playRound (Game game, int playerX, int playerY){
-        System.out.println("In this round player "+ playerX +  " is X and player "+playerY+" is O:");
+    private int playRound (Game game, int playerX, int playerO){
         GameStatus winner = game.play();
-        System.out.print("THE WINNER IS: ");
         if (winner == GameStatus.X_WIN)
             return playerX;
         if (winner == GameStatus.O_WIN)
-            return playerY;
+            return playerO;
         return 0;
     }
     public int[] playTournament(){
@@ -27,22 +25,22 @@ public class Tournament {
             if (i%2 != 0){
                 Game game = new Game(this.player1, this.player2, this.renderBoard);
                 winner = playRound(game, 1, 2);
-
             }
             else{
                 Game game = new Game(this.player2, this.player1, this.renderBoard);
                 winner = playRound(game, 2, 1);
             }
+//            System.out.print("THE WINNER IS: ");
             if (winner == 1){
-                System.out.println("Player 1");
+//                System.out.println(player1.getName()+" (1)");
                 player1win++;
             }
             if (winner == 2){
-                System.out.println("Player 2");
+//                System.out.println(player2.getName()+" (2)");
                 player2win++;
             }
-            if (winner == 0)
-                System.out.println("Player 1 and 2 both win!");
+//            if (winner == 0)
+//                System.out.println("Player 1 and 2 both win!");
         }
         return new int[] {player1win,player2win,(this.numOfRounds-player1win-player2win)};
     }
@@ -78,9 +76,9 @@ public class Tournament {
 
         Tournament tournament = new Tournament(player1,player2,renderBoard,numOfRounds);
         int[] result = tournament.playTournament();
-        System.out.println("\nThe tournament result:\n"+
-                "   Player 1 win: "+ result[0]  + " rounds\n" +
-                "   Player 2 win: "+result[1] +" rounds\n" +
-                "   A draw win: "+ result[2]  + " rounds");
+        System.out.println("\nThe tournament result:\n\t"+
+                player1.getName() + " (1) wan: "+ result[0]  + " rounds\n\t" +
+                player2.getName() + " (2) wan: "+result[1] +" rounds\n\t" +
+                "A draw win: "+ result[2]  + " rounds\n");
     }
 }

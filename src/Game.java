@@ -20,7 +20,8 @@ public class Game {
             playerX.playTurn(board, Mark.X);
             if (this.board.GameStatus() == GameStatus.IN_PROGRESS){
                 this.renderBoard.renderBoard(board);
-                playerO.playTurn(board, Mark.O);}
+                playerO.playTurn(board, Mark.O);
+            }
             else
                 break;
         }

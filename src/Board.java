@@ -8,7 +8,7 @@ public class Board {
 //    GameStatus GameStatus()
 //    Mark getMark(int row, int col)
     public static final int SIZE = 3;
-    public static final int WIN_STREAK = 2;
+    public static final int WIN_STREAK = 3;
     private Mark[][] board;
     private GameStatus gameStatus;
     private int capacity;
@@ -22,12 +22,22 @@ public class Board {
         this.capacity = 0;
     }
 
+    private void changeStatus(Mark mark){
+        if (mark == Mark.X)
+            this.gameStatus = GameStatus.X_WIN;
+        else
+            this.gameStatus = GameStatus.O_WIN;
+    }
     public boolean putMark(Mark mark, int row, int col) {
         if (row < SIZE && col < SIZE)
             if (this.board[row][col] == Mark.BLANK) {
                 this.board[row][col] = mark;
                 this.capacity++;
-                checkForWin(mark,row,col);
+                if(checkForWin(mark,row,col)) {
+                    changeStatus(mark);
+                }
+                if (this.capacity == SIZE * SIZE)
+                    this.gameStatus = GameStatus.DRAW;
                 return true;
             }
         return false;
@@ -37,46 +47,44 @@ public class Board {
         return this.board[row][col];
     }
 
+    public int getCapacity(){
+        return this.capacity;
+    }
+
     public GameStatus GameStatus() {
         return gameStatus;
     }
 
     private boolean chekLine(int i, int j,int i_m, int j_m, Mark mark){
         int sum = 0;
-        for (int row = i+i_m, col = j+j_m; row < SIZE && col < SIZE ; row+=i_m,col+=j_m)
+        for (int row = i+i_m, col = j+j_m; row < SIZE && col < SIZE && row >=0 && col >=0; row+=i_m,col+=j_m)
             if (this.board[row][col] == mark)
                  sum++;
             else
                 break;
-        for (int row = i-i_m, col = j-j_m; row >=0 && col >=0 ; row-=i_m, col-=j_m){
+        for (int row = i-i_m, col = j-j_m; row < SIZE && col < SIZE && row >=0 && col >=0 ; row-=i_m, col-=j_m){
             if (this.board[row][col] == mark)
                 sum++;
             else
                 break;
         }
-        if (sum == WIN_STREAK-1) {
-            if (mark == Mark.X)
-                this.gameStatus = GameStatus.X_WIN;
-            else
-                this.gameStatus = GameStatus.O_WIN;
+        if (sum == WIN_STREAK-1)
             return true;
-        }
         else
             return false;
     }
 
-    private void checkForWin(Mark mark, int row, int col) {
+    public boolean checkForWin(Mark mark, int row, int col) {
         if (this.capacity >= WIN_STREAK * 2 - 1) {
             if (chekLine(row,col,1,0,mark))
-                return;
+                return true;
             if(chekLine(row,col,0,1,mark))
-                return;
+                return true;
             if(chekLine(row,col,1,1,mark))
-                return;
+                return true;
             if(chekLine(row,col,-1,1,mark))
-                return;
+                return true;
         }
-        if (this.capacity == SIZE * SIZE)
-            this.gameStatus = GameStatus.DRAW;
+        return false;
     }
 }

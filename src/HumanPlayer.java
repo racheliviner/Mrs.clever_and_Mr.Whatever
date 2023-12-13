@@ -2,14 +2,18 @@ import java.util.Scanner;
 
 public class HumanPlayer implements Player{
     //    void playTurn (Board board, Mark mark)
-    private Scanner in = new Scanner(System.in);
+    private Scanner scanner = new Scanner(System.in);
+    private String name = "Human player";
 
     public void playTurn(Board board, Mark mark) {
         while (true) {
-            System.out.println( mark + " player coordinates: ");
-            int cord = in.nextInt();
+            System.out.format("Choose coordinates for %s: ", mark);
+            int cord = scanner.nextInt();
             if (board.putMark(mark, cord / 10 - 1, cord % 10 - 1))
                 return;
         }
+    }
+    public String getName(){
+        return this.name;
     }
 }
