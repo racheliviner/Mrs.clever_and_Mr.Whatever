@@ -49,7 +49,8 @@ public class Tournament {
             System.err.println("you need to choose for 2 kinds of players, type of renderer and number of rounds");
             return;
         }
-            String typeOfPlayer1 = args[0];
+//        String[] args = {"clever", "human", "console", "3"} ;
+        String typeOfPlayer1 = args[0];
         String typeOfPlayer2 = args[1];
         String typeOfRenderer = args[2];
         int numOfRounds =Integer.parseInt(args[3]);

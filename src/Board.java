@@ -56,7 +56,7 @@ public class Board {
     }
 
     private boolean chekLine(int i, int j,int i_m, int j_m, Mark mark){
-        int sum = 0;
+        int sum = 1;
         for (int row = i+i_m, col = j+j_m; row < SIZE && col < SIZE && row >=0 && col >=0; row+=i_m,col+=j_m)
             if (this.board[row][col] == mark)
                  sum++;
@@ -68,14 +68,14 @@ public class Board {
             else
                 break;
         }
-        if (sum == WIN_STREAK-1)
+        if (sum == WIN_STREAK)
             return true;
         else
             return false;
     }
 
     public boolean checkForWin(Mark mark, int row, int col) {
-        if (this.capacity >= WIN_STREAK * 2 - 1) {
+        if (this.capacity >= WIN_STREAK * 2 - 2) {
             if (chekLine(row,col,1,0,mark))
                 return true;
             if(chekLine(row,col,0,1,mark))
