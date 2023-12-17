@@ -1,3 +1,8 @@
+package tiktactoe.player;
+
+import tiktactoe.main.Board;
+import tiktactoe.main.Mark;
+
 import java.util.*;
 
 public class CleverPlayer implements Player {
@@ -8,7 +13,7 @@ public class CleverPlayer implements Player {
     private boolean tryToWin(Board board, Mark mark) {
         for (int row = 0; row < board.SIZE; row++)
             for (int col = 0; col < board.SIZE; col++) {
-                if(board.getMark(row, col)== Mark.BLANK)
+                if (board.getMark(row, col) == Mark.BLANK)
                     if (board.checkForWin(mark, row, col))
                         if (board.putMark(mark, row, col))
                             return true;
@@ -17,15 +22,15 @@ public class CleverPlayer implements Player {
     }
 
     private boolean failTheEnemy(Board board, Mark mark) {
+        System.out.println("iam trying to bit you");
         for (int row = 0; row < board.SIZE; row++)
             for (int col = 0; col < board.SIZE; col++) {
-                if(board.getMark(row, col)== Mark.BLANK) {
+                if (board.getMark(row, col) == Mark.BLANK) {
                     if (mark == Mark.X) {
                         if (board.checkForWin(Mark.O, row, col))
                             if (board.putMark(mark, row, col))
                                 return true;
-                    }
-                    else if (mark == Mark.O) {
+                    } else if (mark == Mark.O) {
                         if (board.checkForWin(Mark.X, row, col))
                             if (board.putMark(mark, row, col))
                                 return true;
@@ -35,7 +40,7 @@ public class CleverPlayer implements Player {
         return false;
     }
 
-    private boolean putNextToMark(Board board, Mark mark){
+    private boolean putNextToMark(Board board, Mark mark) {
         for (int trys = 1; trys <= 1000; trys++) {
             int row = rand.nextInt(board.SIZE);
             int col = rand.nextInt(board.SIZE);
@@ -56,11 +61,20 @@ public class CleverPlayer implements Player {
     public void playTurn(Board board, Mark mark) {
         if (board.getCapacity() >= 2) {
             if (tryToWin(board, mark))
+            {
+                System.out.println("i win");
                 return;
+            }
             if (failTheEnemy(board, mark))
+            {
+                System.out.println("i bit you");
                 return;
+            }
             if (putNextToMark(board, mark))
+            {
+                System.out.println("i put next to mark");
                 return;
+            }
         }
         while (true) {
             int row = rand.nextInt(board.SIZE);

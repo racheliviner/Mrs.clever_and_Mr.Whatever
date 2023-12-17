@@ -1,12 +1,10 @@
-enum Mark {BLANK, X, O}
-
-enum GameStatus {DRAW, X_WIN, O_WIN, IN_PROGRESS}
+package tiktactoe.main;
 
 public class Board {
-    //    Board(){}
-//    boolean putMark(Mark mark, int row, int col)
-//    GameStatus GameStatus()
-//    Mark getMark(int row, int col)
+    //    tiktactoe.main.Board(){}
+//    boolean putMark(tiktactoe.main.Mark mark, int row, int col)
+//    tiktactoe.main.GameStatus tiktactoe.main.GameStatus()
+//    tiktactoe.main.Mark getMark(int row, int col)
     public static final int SIZE = 3;
     public static final int WIN_STREAK = 3;
     private Mark[][] board;
@@ -35,6 +33,7 @@ public class Board {
                 this.capacity++;
                 if(checkForWin(mark,row,col)) {
                     changeStatus(mark);
+                    return true;
                 }
                 if (this.capacity == SIZE * SIZE)
                     this.gameStatus = GameStatus.DRAW;
@@ -59,7 +58,7 @@ public class Board {
         int sum = 1;
         for (int row = i+i_m, col = j+j_m; row < SIZE && col < SIZE && row >=0 && col >=0; row+=i_m,col+=j_m)
             if (this.board[row][col] == mark)
-                 sum++;
+                sum++;
             else
                 break;
         for (int row = i-i_m, col = j-j_m; row < SIZE && col < SIZE && row >=0 && col >=0 ; row-=i_m, col-=j_m){

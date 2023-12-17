@@ -1,3 +1,5 @@
+package tiktactoe.rendering;
+
 public class RendererFactory {
     public Renderer buildRenderer(String type){
         switch (type) {

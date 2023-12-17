@@ -1,3 +1,9 @@
+package tiktactoe.player;
+
+import tiktactoe.player.CleverPlayer;
+import tiktactoe.player.HumanPlayer;
+import tiktactoe.player.Player;
+
 public class PlayerFactory {
     public Player buildPlayer (String type){
         switch (type) {

@@ -1,4 +1,7 @@
-import java.util.Scanner;
+package tiktactoe.main;
+
+import tiktactoe.player.Player;
+import tiktactoe.rendering.Renderer;
 
 public class Game {
     private Player playerX;

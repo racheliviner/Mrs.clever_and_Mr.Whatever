@@ -1,7 +1,12 @@
+package tiktactoe.player;
+
+import tiktactoe.main.Board;
+import tiktactoe.main.Mark;
+
 import java.util.Scanner;
 
-public class HumanPlayer implements Player{
-    //    void playTurn (Board board, Mark mark)
+public class HumanPlayer implements Player {
+    //    void playTurn (tiktactoe.main.Board board, tiktactoe.main.Mark mark)
     private Scanner scanner = new Scanner(System.in);
     private String name = "Human player";
 

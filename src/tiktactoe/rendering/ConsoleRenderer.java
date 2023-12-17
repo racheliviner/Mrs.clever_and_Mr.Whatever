@@ -1,13 +1,18 @@
+package tiktactoe.rendering;
+
+import tiktactoe.main.Board;
+import tiktactoe.main.Mark;
+
 
 import java.util.Map;
 import java.util.logging.Logger;
 
 /**
 * A supplied class for the Tic Tac Toe exercise.
-* Renders a given Board to the console.
+* Renders a given tiktactoe.main.Board to the console.
 * @author Dan Nirel
 */
-class ConsoleRenderer implements Renderer{
+class ConsoleRenderer implements Renderer {
 	private static final int ROWS_PER_MARK = 3;
 	private static final int COLS_PER_MARK = 9;
 	private static final char DEFAULT_CHAR = ' ';
@@ -42,7 +47,7 @@ class ConsoleRenderer implements Renderer{
 	*/
 	public ConsoleRenderer() {
 		if(Board.SIZE > 9 || Board.SIZE < 2) {
-			String errorMsg = "Board size must be in the range [2, 9]";
+			String errorMsg = "tiktactoe.main.Board size must be in the range [2, 9]";
 			Logger.getGlobal().severe(errorMsg);
 			throw new Error(errorMsg);
 		}

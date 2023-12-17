@@ -1,3 +1,10 @@
+package tiktactoe.main;
+
+import tiktactoe.player.Player;
+import tiktactoe.player.PlayerFactory;
+import tiktactoe.rendering.Renderer;
+import tiktactoe.rendering.RendererFactory;
+
 public class Tournament {
     private Player player1;
     private Player player2;
@@ -40,16 +47,16 @@ public class Tournament {
                 player2win++;
             }
 //            if (winner == 0)
-//                System.out.println("Player 1 and 2 both win!");
+//                System.out.println("tiktactoe.player.Player 1 and 2 both win!");
         }
         return new int[] {player1win,player2win,(this.numOfRounds-player1win-player2win)};
     }
-    public static void main(String[] args) {
-        if (args.length!=4){
-            System.err.println("you need to choose for 2 kinds of players, type of renderer and number of rounds");
-            return;
-        }
-//        String[] args = {"clever", "human", "console", "3"} ;
+    public static void main(String[] arg) {
+//        if (args.length!=4){
+//            System.err.println("you need to choose for 2 kinds of players, type of renderer and number of rounds");
+//            return;
+//        }
+        String[] args = {"clever", "human", "console", "3"} ;
         String typeOfPlayer1 = args[0];
         String typeOfPlayer2 = args[1];
         String typeOfRenderer = args[2];

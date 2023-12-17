@@ -1,6 +1,11 @@
+package tiktactoe.player;
+
+import tiktactoe.main.Board;
+import tiktactoe.main.Mark;
+
 import java.util.*;
 
-public class WhateverPlayer implements Player{
+public class WhateverPlayer implements Player {
     private Scanner scanner = new Scanner(System.in);
     private Random rand = new Random();
     private String name = "Mr. Whatever";
